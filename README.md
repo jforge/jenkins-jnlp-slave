@@ -7,12 +7,12 @@ This image is based on https://github.com/jenkinsci/docker-inbound-agent image a
 The image also contains docker binary and able to mount /var/run/docker.sock to enable the slave to run docker commands on the slave.
 The default tag of the image is based on alpine and installs also glibc to enable Oracle JDK installations. (see https://github.com/gliderlabs/docker-alpine/issues/11)
 
-The immage support running docker commands in slave in 2 different modes:
+The image support running docker commands in slave in 2 different modes:
 
 * By mounting the host's /var/run/docker.sock inside the slave.
   * docker commands are running on the host's docker daemon.
   * Containers and images built by the slave are not cleaned up.
-  * Cannot mount volumes from the slave's workspace - i.e hard to use docker-compose
+  * Cannot mount volumes from the slave's workspace - i.e. hard to use docker-compose
 * By using *Docker Inside Docker* - requires `privileged` container and passing `DIND=true` variable.
   * docker commands are running within the slave's docker daemon.
   * Containers and images built by the slave are cleaned up directly after slave finishes the build.
@@ -31,12 +31,12 @@ Docker Images are pushed to [Docker Hub](https://hub.docker.com/r/odavid/jenkins
 
 Each release is a git tag v$UPSTREAM_VERSION-$INCREMENT where:
 
-* UPSRTEAM_VERSION is the [docker-inbound-agent](https://github.com/jenkinsci/docker-inbound-agent) version
-* INCREMENT is a number representing that representing the release contents (i.e docker version, bugs, etc...)
+* UPSTREAM_VERSION is the [docker-inbound-agent](https://github.com/jenkinsci/docker-inbound-agent) version
+* INCREMENT is a number representing that representing the release contents (i.e. docker version, bugs, etc...)
 
 For each git tag, there following tags will be created:
-* $UPSRTEAM_VERSION-$INCREMENT - one to one releationship with git tag
-* $UPSRTEAM_VERSION - latest release for that UPSRTEAM_VERSION version
+* $UPSTREAM_VERSION-$INCREMENT - one-to-one relationship with git tag
+* $UPSTREAM_VERSION - the latest release for that $UPSTREAM_VERSION version
 
 The following distributions are supported:
 * alpine (also the default)

@@ -3,22 +3,24 @@ set -e -o pipefail
 
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
+SOURCE_IMAGE=jforge/jenkins-jnlp-slave
+
 if [[ -n $GIT_TAG ]]; then
     TAG=${GIT_TAG/v/}
     echo "publish $TAG"
-	docker tag odavid/jenkins-jnlp-slave odavid/jenkins-jnlp-slave:${TAG}
-	docker tag odavid/jenkins-jnlp-slave:alpine odavid/jenkins-jnlp-slave:${TAG}-alpine
-	docker tag odavid/jenkins-jnlp-slave:debian odavid/jenkins-jnlp-slave:${TAG}-debian
-	docker tag odavid/jenkins-jnlp-slave:jdk11 odavid/jenkins-jnlp-slave:${TAG}-jdk11
-	docker push odavid/jenkins-jnlp-slave:${TAG}
-	docker push odavid/jenkins-jnlp-slave:${TAG}-alpine
-	docker push odavid/jenkins-jnlp-slave:${TAG}-debian
-	docker push odavid/jenkins-jnlp-slave:${TAG}-jdk11
+	docker tag ${SOURCE_IMAGE} ${SOURCE_IMAGE}:${TAG}
+	docker tag ${SOURCE_IMAGE}:alpine ${SOURCE_IMAGE}:${TAG}-alpine
+	docker tag ${SOURCE_IMAGE}:debian ${SOURCE_IMAGE}:${TAG}-debian
+	docker tag ${SOURCE_IMAGE}:jdk11 ${SOURCE_IMAGE}:${TAG}-jdk11
+	docker push ${SOURCE_IMAGE}:${TAG}
+	docker push ${SOURCE_IMAGE}:${TAG}-alpine
+	docker push ${SOURCE_IMAGE}:${TAG}-debian
+	docker push ${SOURCE_IMAGE}:${TAG}-jdk11
 
 else
     echo "publish latest"
-	docker push odavid/jenkins-jnlp-slave
-	docker push odavid/jenkins-jnlp-slave:alpine
-	docker push odavid/jenkins-jnlp-slave:debian
-	docker push odavid/jenkins-jnlp-slave:jdk11
+	docker push ${SOURCE_IMAGE}
+	docker push ${SOURCE_IMAGE}:alpine
+	docker push ${SOURCE_IMAGE}:debian
+	docker push ${SOURCE_IMAGE}:jdk11
 fi
