@@ -31,7 +31,7 @@ jobs:
   publish-latest:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event.ref == 'refs/heads/master'
+    if: github.event.ref == 'refs/heads/dockerhub-jforge'
     steps:
       - uses: actions/checkout@v2
       - name: publish
